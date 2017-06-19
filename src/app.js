@@ -1,154 +1,187 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
+  //AppRegistry,
   StyleSheet,
-  TouchableHighlight,
-  ScrollView,
-  RefreshControl,
-  Text,
+  //TouchableHighlight,
+  //ScrollView,
+  //RefreshControl,
+  //Text,
   StatusBar,
   View
 } from 'react-native';
-import Weather     		from './WeatherApi';
-import Swiper         	from 'react-native-swiper';
-//import SvgUri           from 'react-native-svg-uri';
+import { TabNavigator } from 'react-navigation';
+import Search           from './components/Search.js';
+import Main           from './components/Main.js';
+//import Weather     		from './WeatherApi';
+//import Swiper           from 'react-native-swiper';
+
+
+const Nav = TabNavigator({
+    Search : {screen : Search},
+    Main: {screen : Main}
+}, {
+    tabBarPosition: 'top',
+    swipeEnabled: true,
+    lazy: true,
+    tabBarOptions: {
+        showIcon: true,
+        showLabel: false,
+        style: {
+            backgroundColor: '#17182D',
+          },
+    }
+})
 
 class App extends Component {
 
-	constructor(props) {
-	    super(props);
-	    this.state = {	
-	    	isRefreshing: false,
-            longitude:    'unknown',
-            latitude:     'unknown',
-            renderIsDone: false,
-	    	weather:      null
-	    };
-	    this.Weather = new Weather;
-        this.count   = 0;
-        this.watchID = null;
-        this.weather = null;
-	}
 
-    
-    componentDidMount() {
+    render() {
+        return (
 
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            let initialPosition = JSON.stringify(position);
-            this.setState({
-                longitude: position.coords.longitude,
-                latitude:  position.coords.latitude
-            });
-        },
-        (error) => alert(JSON.stringify(error)),
-
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-
-        );
-
-        this.watchID = navigator.geolocation.watchPosition((position) => {
-          let lastPosition = JSON.stringify(position);
-          this.setState({lastPosition});
-      });
-    }
-
-    componentWillUnmount() {
-        navigator.geolocation.clearWatch(this.watchID);
-    }
-
-	render() {this.count++
-        console.log(this.count)
-	    return (
-	    		<ScrollView
-			        style={styles.scrollview}
-			        refreshControl={
-			          <RefreshControl
-			            refreshing={this.state.isRefreshing}
-			            onRefresh={() => this.onRefresh()}
-			            tintColor="#FFF"
-			            title="Wait..."
-			            titleColor="#fff"
-			            colors={['#ff0000', '#00ff00', '#0000ff']}
-			            progressBackgroundColor="#fff"
-			          />
-			        }>
-		    		<View style={styles.container} >
-			    		<StatusBar barStyle='light-content' backgroundColor="#242322" />
-			    		<View style={styles.header}>
-                            {(this.weather === null && this.state.renderIsDone === false) ? this.loadWeather(this.state.latitude+','+this.state.longitude) : console.log('') }
-
-			    			<View style={styles.timerWrapper}>
-                                {this.weather === null  ? this.renderLoading() : this.renderWeather()}
-			    			</View>
-			    		</View>
-			    	</View>	
-		    	</ScrollView>
-	    	);
-	}
-
-	onRefresh() {
-		this.setState({isRefreshing: true});
-
-		//this.renderWeather();
-
-	    setTimeout(() => {
-	    	
-	      	this.setState({
-	        	isRefreshing: false,
-	      	});
-	    }, 2000);
-	}
-    
-
-	loadWeather(location) {        
-        if (this.state.latitude === 'unknown' || this.state.longitude === 'unknown') {
-            this.weather = null;
-        } else {
-            let opt = {
-                location: location, 
-                woeid: "",
-                unit: 'c',
-                return: (weather) => {
-                    this.weather = weather ;
-                    this.render();
-                }
-            }
-            this.Weather.simpleWeather(opt);
-        }
-		
-	}
-
-    renderWeather() {
-        console.log('time 1')
-        setTimeout(() => {
-            console.log('time 2')
-            if (!this.state.renderIsDone) {
-               this.setState({
-                    renderIsDone: true
-                }); 
-            }
+            <View style={styles.container} >
+                <StatusBar hidden={true} />
+                <View style={styles.header}>
+                    <Nav />
+                </View>
+            </View> 
             
-            //this.onRefresh();  
-        }, 1);
-        console.log('time 3')
-        return (<View>
-                        <Text style={[styles.text, styles.timer]} > 
-                        {this.weather.city}
-                        </Text>
-                        <Text style={[styles.text, styles.timer]} > 
-                        {this.weather.temp+"°C"}
-                        </Text>
-                    </View>)
-
-    }
-
-    renderLoading() {
-        return (<Text style={[styles.text, styles.timer]} > 
-                    Chargement
-                </Text>)        
+        );
     }
 }
+	// constructor(props) {
+	//     super(props);
+	//     this.state = {	
+	//     	isRefreshing: false,
+ //            longitude:    'unknown',
+ //            latitude:     'unknown',
+ //            renderIsDone: false,
+	//     	weather:      null
+	//     };
+	//     this.Weather = new Weather;
+ //        this.count   = 0;
+ //        this.watchID = null;
+ //        this.weather = null;
+	// }
+
+    
+ //    componentDidMount() {
+
+ //        navigator.geolocation.getCurrentPosition(
+ //          (position) => {
+ //            let initialPosition = JSON.stringify(position);
+ //            this.setState({
+ //                longitude: position.coords.longitude,
+ //                latitude:  position.coords.latitude
+ //            });
+ //        },
+ //        (error) => alert(JSON.stringify(error)),
+
+ //        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+
+ //        );
+
+ //        this.watchID = navigator.geolocation.watchPosition((position) => {
+ //          let lastPosition = JSON.stringify(position);
+ //          this.setState({lastPosition});
+ //      });
+ //    }
+
+ //    componentWillUnmount() {
+ //        navigator.geolocation.clearWatch(this.watchID);
+ //    }
+
+	// render() {this.count++
+ //        console.log(this.count)
+	//     return (
+	//     		<ScrollView
+	// 		        style={styles.scrollview}
+	// 		        refreshControl={
+	// 		          <RefreshControl
+	// 		            refreshing={this.state.isRefreshing}
+	// 		            onRefresh={() => this.onRefresh()}
+	// 		            tintColor="#FFF"
+	// 		            title="Wait..."
+	// 		            titleColor="#fff"
+	// 		            colors={['#ff0000', '#00ff00', '#0000ff']}
+	// 		            progressBackgroundColor="#fff"
+	// 		          />
+	// 		        }>
+	// 	    		<View style={styles.container} >
+	// 		    		<StatusBar barStyle='light-content' backgroundColor="#242322" />
+	// 		    		<View style={styles.header}>
+ //                            {(this.weather === null && this.state.renderIsDone === false) ? this.loadWeather(this.state.latitude+','+this.state.longitude) : console.log('') }
+
+	// 		    			<View style={styles.timerWrapper}>
+ //                                {this.weather === null  ? this.renderLoading() : this.renderWeather()}
+	// 		    			</View>
+	// 		    		</View>
+	// 		    	</View>	
+	// 	    	</ScrollView>
+	//     	);
+	// }
+
+	// onRefresh() {
+	// 	this.setState({isRefreshing: true});
+
+	// 	//this.renderWeather();
+
+	//     setTimeout(() => {
+	    	
+	//       	this.setState({
+	//         	isRefreshing: false,
+	//       	});
+	//     }, 2000);
+	// }
+    
+
+	// loadWeather(location) {        
+ //        if (this.state.latitude === 'unknown' || this.state.longitude === 'unknown') {
+ //            this.weather = null;
+ //        } else {
+ //            let opt = {
+ //                location: location, 
+ //                woeid: "",
+ //                unit: 'c',
+ //                return: (weather) => {
+ //                    this.weather = weather ;
+ //                    this.render();
+ //                }
+ //            }
+ //            this.Weather.simpleWeather(opt);
+ //        }
+		
+	// }
+
+ //    renderWeather() {
+ //        console.log('time 1')
+ //        setTimeout(() => {
+ //            console.log('time 2')
+ //            if (!this.state.renderIsDone) {
+ //               this.setState({
+ //                    renderIsDone: true
+ //                }); 
+ //            }
+            
+ //            //this.onRefresh();  
+ //        }, 1);
+ //        console.log('time 3')
+ //        return (<View>
+ //                        <Text style={[styles.text, styles.timer]} > 
+ //                        {this.weather.city}
+ //                        </Text>
+ //                        <Text style={[styles.text, styles.timer]} > 
+ //                        {this.weather.temp+"°C"}
+ //                        </Text>
+ //                    </View>)
+
+ //    }
+
+ //    renderLoading() {
+ //        return (<Text style={[styles.text, styles.timer]} > 
+ //                    Chargement
+ //                </Text>)        
+ //    }
+//}
 
 const styles = StyleSheet.create({
   	container: {
