@@ -21,7 +21,7 @@ export default class Main extends Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-			city: (this.props.navigation && this.props.navigation.state && this.props.navigation.state.params && this.props.navigation.state.params.city) ? this.props.navigation.state.params.city : "Paris",
+			city: (this.props.navigation && this.props.navigation.state && this.props.navigation.state.params && this.props.navigation.state.params.city) ? this.props.navigation.state.params.city : null,
 			WeatherData: null,
 			longitude: null,
 			latitude:  null,
@@ -33,13 +33,12 @@ export default class Main extends Component {
 
 		}
 		this.Weather = new WeatherApi
-		this.fetchData()
+		
 	}
 
 	fetchData() {
-		console.log(this.state.longitude)
 		let options = {
-            location: this.state.city,
+            location: (this.state.city == null ? this.state.latitude+','+this.state.longitude : this.state.city),
             woeid: '',
             unit: 'f',            
         }
@@ -60,7 +59,6 @@ export default class Main extends Component {
         } else if(options.woeid !== '') {
             weatherUrl += 'select * from weather.forecast where woeid=' + options.woeid + ' and u="' + options.unit + '"';
         } else {
-            //options.error('Could not retrieve weather due to an invalid location.');
             return false;
         }
 
@@ -85,13 +83,11 @@ export default class Main extends Component {
 	}
 
 
-	componentDidMount() {
+	componentWillMount() {
 		console.log('componentDidMount')
-		console.log(navigator.geolocation)
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				let initialPosition = JSON.stringify(position);
-				console.log(position)
 				this.setState({
 					longitude: position.coords.longitude,
 					latitude:  position.coords.latitude
@@ -107,7 +103,10 @@ export default class Main extends Component {
 			let lastPosition = JSON.stringify(position);
 			this.setState({lastPosition});
 		});
-		console.log(this.state.longitude)
+		setTimeout(() =>{
+				this.fetchData()
+			}, 1000)
+		
 	}
 
 	componentWillUnmount() {
