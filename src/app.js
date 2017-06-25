@@ -17,8 +17,8 @@ import Main           from './components/Main.js';
 
 
 const Nav = TabNavigator({
-    Search : {screen : Search},
-    Main: {screen : Main}
+    Main: {screen : Main},
+    Search : {screen : Search}
 }, {
     tabBarPosition: 'top',
     swipeEnabled: true,
@@ -27,8 +27,8 @@ const Nav = TabNavigator({
         showIcon: true,
         showLabel: false,
         style: {
-            backgroundColor: '#17182D',
-          },
+            backgroundColor: '#17182D'
+        },
     }
 })
 
@@ -45,7 +45,7 @@ class App extends Component {
                 </View>
             </View> 
             
-        );
+            );
     }
 }
 	// constructor(props) {
@@ -63,7 +63,7 @@ class App extends Component {
  //        this.weather = null;
 	// }
 
-    
+
  //    componentDidMount() {
 
  //        navigator.geolocation.getCurrentPosition(
@@ -126,13 +126,13 @@ class App extends Component {
 	// 	//this.renderWeather();
 
 	//     setTimeout(() => {
-	    	
+
 	//       	this.setState({
 	//         	isRefreshing: false,
 	//       	});
 	//     }, 2000);
 	// }
-    
+
 
 	// loadWeather(location) {        
  //        if (this.state.latitude === 'unknown' || this.state.longitude === 'unknown') {
@@ -149,7 +149,7 @@ class App extends Component {
  //            }
  //            this.Weather.simpleWeather(opt);
  //        }
-		
+
 	// }
 
  //    renderWeather() {
@@ -161,7 +161,7 @@ class App extends Component {
  //                    renderIsDone: true
  //                }); 
  //            }
-            
+
  //            //this.onRefresh();  
  //        }, 1);
  //        console.log('time 3')
@@ -184,119 +184,119 @@ class App extends Component {
 //}
 
 const styles = StyleSheet.create({
-  	container: {
-  		flex:            1, 
-  		alignItems: 	'stretch',
-  		padding:         10,
-  		backgroundColor: '#17182D'
-  	}, 
-  	text: {
-  		color: "#fff",
-  		fontFamily:'Avenir'  		
-  	},
-  	header: {
-  		flex: 1
-  	},
-  	scrollview: {
-	    flex: 1,
-	    backgroundColor: '#17182D'
-	  },
-  	footer: {
-		flex: 1
-  	},
-  	timerWrapper: {
-  		flex:           5,
-  		justifyContent: 'center',
-  		alignItems:     'center'
-  	},
-  	buttonWrapper: {
-  		flex:           3,
-  		flexDirection:  'row',
-  		justifyContent: 'space-around',
-  		alignItems:     'center'
-  	},
-  	timer: {
-  		fontSize: 60
-  	},
-  	buttonLap: {
-  		borderWidth:      1,
-  		borderColor: 	 '#22DDF2',
-  		height:          50,
-  		width:           100,
-  		borderRadius:    50,
-  		justifyContent: 'center',
-  		alignItems :     'center'
-  	},
-  	buttonStart: {
-  		borderWidth:      1,
-  		borderColor: 	 '#1CF20A',
-  		height:          50,
-  		width:           100,
-  		borderRadius:    50,
-  		justifyContent:  'center',
-  		alignItems :     'center'
-  	},
-  	buttonStop: {
-  		borderWidth:      1,
-  		borderColor: 	 '#F23535',
-  		height:          50,
-  		width:           100,
-  		borderRadius:    50,
-  		justifyContent: 'center',
-  		alignItems :    'center'
-  	},
-  	lap : {
-  		justifyContent:   'space-around',
-  		flexDirection:    'row',
-  		borderWidth:      1,
-  		borderColor: 	  '#fff',
-  		borderRadius:     50,
-  		padding: 		  10,
-  		margin:           10
- 
-  	},
-  	lapText: {
-  		fontSize:         20,
-  		color:    	      '#fff'
-   	},
-   	containerResult: {
-   		backgroundColor: '#17182D',
-   		flex:            1, 
-  		alignItems: 	'center',
-  		padding:         10
-   	},
-   	showTime: {
-   		flex:1,
-   		alignItems: 'center',
-   		justifyContent: 'flex-end'
-   	},
-   	resultWrapper: {
-		flexDirection: 'row', 
-		flex: 7,
-		alignItems: 'center'		
-   	},
-   	bar: {
-   		flex:1,
-   		borderWidth: 3,
-   		borderColor: '#17182D'
-   	},
-   	preview: {
-	    flex: 1,
-	    justifyContent: 'flex-end',
-	    alignItems: 'center'
-  	},
-  	textShowTime:{
-  		fontSize:         25,
-  		color:    	      '#fff'
-  	},
-  	capture: {
-	    flex: 0,
-	    backgroundColor: '#fff',
-	    borderRadius: 5,
-	    color: '#000',
-	    padding: 10,
-	    margin: 40
-  	}
+ container: {
+    flex:            1, 
+    alignItems: 	'stretch',
+    padding:         10,
+    backgroundColor: '#17182D'
+}, 
+text: {
+    color: "#fff",
+    fontFamily:'Avenir'  		
+},
+header: {
+    flex: 1
+},
+scrollview: {
+   flex: 1,
+   backgroundColor: '#17182D'
+},
+footer: {
+  flex: 1
+},
+timerWrapper: {
+    flex:           5,
+    justifyContent: 'center',
+    alignItems:     'center'
+},
+buttonWrapper: {
+    flex:           3,
+    flexDirection:  'row',
+    justifyContent: 'space-around',
+    alignItems:     'center'
+},
+timer: {
+    fontSize: 60
+},
+buttonLap: {
+    borderWidth:      1,
+    borderColor: 	 '#22DDF2',
+    height:          50,
+    width:           100,
+    borderRadius:    50,
+    justifyContent: 'center',
+    alignItems :     'center'
+},
+buttonStart: {
+    borderWidth:      1,
+    borderColor: 	 '#1CF20A',
+    height:          50,
+    width:           100,
+    borderRadius:    50,
+    justifyContent:  'center',
+    alignItems :     'center'
+},
+buttonStop: {
+    borderWidth:      1,
+    borderColor: 	 '#F23535',
+    height:          50,
+    width:           100,
+    borderRadius:    50,
+    justifyContent: 'center',
+    alignItems :    'center'
+},
+lap : {
+    justifyContent:   'space-around',
+    flexDirection:    'row',
+    borderWidth:      1,
+    borderColor: 	  '#fff',
+    borderRadius:     50,
+    padding: 		  10,
+    margin:           10
+
+},
+lapText: {
+    fontSize:         20,
+    color:    	      '#fff'
+},
+containerResult: {
+   backgroundColor: '#17182D',
+   flex:            1, 
+   alignItems: 	'center',
+   padding:         10
+},
+showTime: {
+   flex:1,
+   alignItems: 'center',
+   justifyContent: 'flex-end'
+},
+resultWrapper: {
+  flexDirection: 'row', 
+  flex: 7,
+  alignItems: 'center'		
+},
+bar: {
+   flex:1,
+   borderWidth: 3,
+   borderColor: '#17182D'
+},
+preview: {
+   flex: 1,
+   justifyContent: 'flex-end',
+   alignItems: 'center'
+},
+textShowTime:{
+    fontSize:         25,
+    color:    	      '#fff'
+},
+capture: {
+   flex: 0,
+   backgroundColor: '#fff',
+   borderRadius: 5,
+   color: '#000',
+   padding: 10,
+   margin: 40
+}
 });
 
 
